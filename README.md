@@ -25,7 +25,13 @@ Competition and data available [here](https://competitions.codalab.org/competiti
  - Evaluation: IoU, i.e. Intersection over Union = Area of Overlap / Area of Union
 
 ## 3. Visual Question Answering
-WIP
+Competition and data available [here](https://www.kaggle.com/c/anndl-2020-vqa)
+ - input: An image and a question about the image
+ - output: Answers belong to 3 possible categories: 'yes/no', 'counting' (from 0 to 5) and 'other' (e.g. colors, location, ecc.) answers. It's treated as a classification problem (where the class is the answer)
+ - 58832 questions in training set 
+ - 29333 total images (size: 400x700)
+ - 6372 questions for testing
+ - Evaluation: Multiclass Accuracy
 
 ## Team
 [__Arianna Galzerano__](https://github.com/arigalzi), [__Francesco Fulco Gonzales__](https://github.com/fulcus), [__Alberto Latino__](https://github.com/albertolatino)
