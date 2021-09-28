@@ -20,6 +20,8 @@ Dataset: 5614 images in the training set, 450 images in the test set
 
 Evaluation: Multiclass Accuracy 95.33%
 
+<img src="assets/1-challenge.jpg" width="470"/>
+
 ### The models
 
 #### Simple CNN
@@ -44,7 +46,12 @@ The images contained two different crop types: Mais or Haricot.
 
 Datasets: integration of 4 widely different datasets of pictures and masks coming from the [ROSE challenge](http://challenge-rose.fr/en/home/)
 
-Evaluation: IoU, i.e. Intersection over Union = Area of Overlap / Area of Union (62.34%)
+Evaluation: Intersection over Union 62.34%
+
+![equation](https://latex.codecogs.com/gif.latex?IoU=\frac{\text{Area&space;of&space;Overlap}}{\text{Area&space;of&space;Union}})
+
+
+<img src="assets/2-challenge-img.jpg" width="470"/> <img src="assets/2-challenge-mask.png" width="470"/> 
 
 ### Image processing
 
@@ -74,7 +81,13 @@ The given input is an image and an associated question about it, and the output 
 
 Dataset: 58832 questions in training set, 29333 total images (size: 400x700), 6372 questions for testing
 
-Evaluation: Multiclass Accuracy (64.767%)
+Evaluation: Multiclass Accuracy 64.76%
+
+| <img src="assets/3-challenge.png" width="470"/> |
+|:--| 
+| **Q**: How many bikes?! <br> **A**: 1 |
+
+
 
 ### Preprocessing 
 In the first section of the code we worked on collecting and reorganizing images and questions of the training dataset. Tokenization and padding of the questions was applied using tf.keras.preprocessing tools and the custom generator (`batch_generator`), which allows a correct generation of batches for the network, was developed. A further improvement in the performance could have been reached by incrementing the batch size to more than 70 (which was our final choice) which wasn’t possible to test due to exhaustion of GPU memory on Google Colab.
