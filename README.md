@@ -51,7 +51,7 @@ Evaluation: Intersection over Union 62.34%
 ![equation](https://latex.codecogs.com/gif.latex?IoU=\frac{\text{Area&space;of&space;Overlap}}{\text{Area&space;of&space;Union}})
 
 
-<img src="assets/2-challenge-img.jpg" width="470"/> <img src="assets/2-challenge-mask.png" width="470"/> 
+<img src="assets/2-challenge-img.jpg" width="425"/> <img src="assets/2-challenge-mask.png" width="425"/> 
 
 ### Image processing
 
