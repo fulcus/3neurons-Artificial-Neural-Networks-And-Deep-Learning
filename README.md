@@ -16,9 +16,9 @@ The goal of the challenge is to classify images of people wearing masks into one
 * No one in the image is wearing a mask
 * Someone in the image is not wearing a mask.
 
-Dataset: 5614 images in the training set, 450 images in the test set
+**Dataset**: 5614 images in the training set, 450 images in the test set
 
-Evaluation: Multiclass Accuracy 95.33%
+**Evaluation**: Multiclass Accuracy 95.33%
 
 <img src="assets/1-challenge.jpg" width="470"/>
 
@@ -29,8 +29,8 @@ The first approach we tried was a simple Convolutional Neural Network with 5 con
 #### Transfer Learning
 By leveraging previously trained models and including them in the structure of our new model we were able to obtain a noticeably higher accuracy.
 The first model we used was **VGG16**, which, after several tries and substantial tweaking surprised us with the astounding accuracy of 87%.
-We also tried VGG19 and made some changes to the structure of the layers: by thorough experimentation and inspired by famous architectures, we decided to add a Global Average Pooling layer right after the convolutional part of the network, substituting the previous MLP network. This reduced the number of parameters to be trained and obtained equally good results as we already got enough nonlinearity in the convolutional part. With this approach we reached an accuracy of 90%.
-To further improve the performance we tried some newer models, **Inception** and Xception.
+We also tried **VGG19** and made some changes to the structure of the layers: by thorough experimentation and inspired by famous architectures, we decided to add a Global Average Pooling layer right after the convolutional part of the network, substituting the previous MLP network. This reduced the number of parameters to be trained and obtained equally good results as we already got enough nonlinearity in the convolutional part. With this approach we reached an accuracy of 90%.
+To further improve the performance we tried some newer models, **Inception** and **Xception**.
 We then proceeded to tune the hyperparameters and structure of the model. Following are some of the parameters that mostly influenced it:
 * the **learning rate** was changed from 1e-5 to 5e-5 and eventually lowered to 2e-5 to reduce
 oscillations
@@ -44,19 +44,22 @@ The goal of the challenge is to perform precise automatic crop and weed segmenta
 The segmented objects can belong to one of three classes: weed, crop or background.
 The images contained two different crop types: Mais or Haricot.
 
-Datasets: integration of 4 widely different datasets of pictures and masks coming from the [ROSE challenge](http://challenge-rose.fr/en/home/)
+**Datasets**: integration of 4 widely different datasets of pictures and masks coming from the [ROSE challenge](http://challenge-rose.fr/en/home/)
 
-Evaluation: Intersection over Union 62.34%
+**Evaluation**: Intersection over Union 62.34%
 
 ![equation](https://latex.codecogs.com/gif.latex?IoU=\frac{\text{Area&space;of&space;Overlap}}{\text{Area&space;of&space;Union}})
 
 
-<img src="assets/2-challenge-img.jpg" width="425"/> <img src="assets/2-challenge-mask.png" width="425"/> 
+| <img src="assets/2-challenge-img.jpg" width="410"/> | <img src="assets/2-challenge-mask.png" width="410"/> |
+|:---:|:---:| 
+| Input image | Taget mask |
+ 
 
 ### Image processing
 
 A major improvement came from changing image processing library from PIL to **CV2**. As a matter of fact, it seemed that due to the dimension of the images of the dataset, too much information was lost when processing the images with the former.
-Since images had very large dimensions, using a resize function was another of the reasons of the significant loss of information. Through trial and error, we found that 2048 x 2048 was the best image size for the inputs, with the application of `CV2.INTER_AREA` as an interpolation method for downscaling and `CV2.BICUBIC` for upscaling. Another boost in performance came by applying the same random transformation to images and mask targets using custom dataset objects.
+Since images had very large dimensions, using a resize function was another of the reasons of the significant loss of information. Through trial and error, we found that `2048x2048` was the best image size for the inputs, with the application of `CV2.INTER_AREA` as an interpolation method for downscaling and `CV2.BICUBIC` for upscaling. Another boost in performance came by applying the same random transformation to images and mask targets using custom dataset objects.
 
 ### The models
 
@@ -79,9 +82,9 @@ Competition and data available on [kaggle](https://www.kaggle.com/c/anndl-2020-v
 The goal of the challenge is to answer questions using the information provided by the corresponding image and question pair. 
 The given input is an image and an associated question about it, and the output is an answer, belonging to one of three possible categories: 'yes/no', 'counting' (from 0 to 5) and 'other' (e.g. colors, location, ecc.) answers. It's treated as a classification problem (where the class is the answer).
 
-Dataset: 58832 questions in training set, 29333 total images (size: 400x700), 6372 questions for testing
+**Dataset**: 58832 questions in training set, 29333 total images (size: 400x700), 6372 questions for testing
 
-Evaluation: Multiclass Accuracy 64.76%
+**Evaluation**: Multiclass Accuracy 64.76%
 
 | <img src="assets/3-challenge.png" width="470"/> |
 |:--| 
@@ -101,10 +104,10 @@ Initially, we chose the **VGG16** model for transfer learning, and successively 
 
 #### Text processing model
 In order to embed the questions, the model uses a **two layer LSTM** to encode the questions.
-Initially we used LSTM layers and Dropout layers. In a second moment, we perceived that this part was less powerful than the Image processing part of the model. Therefore, for building a RNN with a longer range dependencies, we made **Bidirectional** the first LSTM layer. This layer permits the propagation of input in the RNN.
+Initially we used LSTM layers and Dropout layers. In a second moment, we perceived that this part was less powerful than the Image processing part of the model. Therefore, for building a RNN with a longer range dependencies, we made the first LSTM layer **bidirectional**. This layer permits the propagation of input in the RNN.
 
 #### Final model and fine tuning
-In the final part of the implementation of the model, the image features are normalized. Then, both the question and image features are transformed to a common space and fused via element-wise multiplication, which is then passed through a fully connected layer followed by a softmax layer to obtain a distribution over answers.
+In the final part of the implementation of the model, the image features are normalized. Then, both the question and image features are transformed to a common space and fused via element-wise multiplication, which is then passed through a **fully connected layer** followed by a **softmax** layer to obtain a distribution over answers.
 We then proceeded to tune the hyperparameters and the structure of the model. Following are some of the parameters that influenced it:
 * The compilation was pretty standard, using Adam optimizer and the Categorical_Crossentropy loss function (since we used one-hot representation for the target).
 * The **learning rate** was changed from 1e-4 to 5e-4 and eventually to 1e-3 to reduce oscillations
